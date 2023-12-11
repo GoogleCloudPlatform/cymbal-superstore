@@ -73,7 +73,7 @@ gcloud config set project $PROJECT_ID
 4. Run the Docker auth credential helper. 
 
 ```
-gcloud auth configure-docker
+gcloud auth configure-docker us-central1-docker.pkg.dev
 ```
 
 5. Install brew.
