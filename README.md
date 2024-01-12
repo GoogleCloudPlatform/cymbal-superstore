@@ -97,11 +97,12 @@ brew install terraform
 cd cymbal-superstore/terraform
 ```
 
-8. In the `terraform/` directory, create a file called `terraform.tfvars`. Replace PROJECT_ID with your project ID, then save the file. 
+8. In the `terraform/` directory, create a file called `terraform.tfvars`. Replace PROJECT_ID and PROJECT_NUMBER with your project ID and project number, then save the file. 
 
 `terraform/terraform.tfvars`: 
 ```
 project_id="YOUR_PROJECT_ID"
+project_number="YOUR_PROJECT_NUMBER"
 
 ```
 

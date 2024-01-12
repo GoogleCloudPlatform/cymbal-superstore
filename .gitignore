@@ -21,6 +21,9 @@ build/
 node_modules/
 jspm_packages/
 
+# NPM state
+*/package-lock.json
+
 # Distribution directories
 dist/
 
