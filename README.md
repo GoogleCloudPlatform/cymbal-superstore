@@ -106,6 +106,8 @@ project_number="YOUR_PROJECT_NUMBER"
 
 ```
 
+Note: You can use `gcloud` to obtain your project number: `gcloud projects describe $PROJECT_ID --format="value(projectNumber)"`.
+
 9. Initialize Terraform. 
 
 ```
