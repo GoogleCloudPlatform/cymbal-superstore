@@ -187,6 +187,16 @@ resource "null_resource" "docker_push_backend" {
 }
 
 # // -------------  CLOUD RUN SERVICE - INVENTORY API -----------------------------------------------------------------
+data "google_iam_policy" "cloud_run_sa" {
+  binding {
+    role = "roles/datastore.user"
+
+    members = [
+      "serviceAccount:${var.project_number}-compute@developer.gserviceaccount.com",
+    ]
+  }
+}
+
 resource "google_cloud_run_v2_service" "inventory" {
   name     = "inventory"
   location = var.region
@@ -206,7 +216,7 @@ resource "google_cloud_run_v2_service" "inventory" {
       startup_probe {
         initial_delay_seconds = 10
         timeout_seconds       = 10
-        period_seconds        = 5
+        period_seconds        = 10
         failure_threshold     = 3
         tcp_socket {
           port = 8000
@@ -218,12 +228,12 @@ resource "google_cloud_run_v2_service" "inventory" {
         }
         initial_delay_seconds = 10
         timeout_seconds       = 10
-        period_seconds        = 5
+        period_seconds        = 10
         failure_threshold     = 3
       }
     }
   }
-  depends_on = [null_resource.docker_push_backend]
+  depends_on = [null_resource.docker_push_backend, data.google_iam_policy.cloud_run_sa]
 }
 
 resource "google_cloud_run_v2_service_iam_member" "member" {
