@@ -273,17 +273,3 @@ resource "google_storage_bucket_object" "bq_rawdata" {
     google_storage_bucket.frontend
   ]
 }
-
-// exec using the bq command to load sales_bq_rawdata.csv from GCS bucket "Frontend" into table 
-resource "null_resource" "bq_load" {
-  provisioner "local-exec" {
-    command = "bq load --autodetect --source_format=CSV --skip_leading_rows=1 ${google_bigquery_dataset.bq_dataset.dataset_id}.${google_bigquery_table.bq_table.table_id} gs://${google_storage_bucket.frontend.name}/sales_bq_rawdata.csv"
-  }
-  depends_on = [
-    google_bigquery_table.bq_table,
-    google_storage_bucket_object.bq_rawdata
-  ]
-  triggers = {
-    always_run = timestamp()
-  }
-}
