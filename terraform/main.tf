@@ -295,6 +295,9 @@ resource "google_spanner_instance" "transactions" {
   config       = "regional-us-central1"
   display_name = "Cymbal Superstore Transactions"
   num_nodes    = 2
+  depends_on   = [
+    google_project_service.spanner
+  ]
 }
 
 
