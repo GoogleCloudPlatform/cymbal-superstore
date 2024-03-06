@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+data "google_project" "project" {
+  project_id = var.project_id
+}
+
 // import random string
 resource "random_string" "image_tag" {
   length  = 16
@@ -192,7 +196,7 @@ data "google_iam_policy" "cloud_run_sa" {
     role = "roles/datastore.user"
 
     members = [
-      "serviceAccount:${var.project_number}-compute@developer.gserviceaccount.com",
+      "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com",
     ]
   }
 }
@@ -286,26 +290,4 @@ resource "null_resource" "bq_load" {
   triggers = {
     always_run = timestamp()
   }
-}
-
-// SPANNER DATABASE
-resource "google_spanner_instance" "transactions" {
-  project      = var.project_id
-  name         = "cymbal-spanner-instance"
-  config       = "regional-us-central1"
-  display_name = "Cymbal Superstore Transactions"
-  num_nodes    = 2
-}
-
-
-resource "google_spanner_database" "database" {
-  project                  = var.project_id
-  instance                 = google_spanner_instance.transactions.name
-  name                     = "transactions-db"
-  version_retention_period = "7d"
-  ddl = [
-    "CREATE TABLE t1 (t1 INT64 NOT NULL,) PRIMARY KEY(t1)",
-    "CREATE TABLE t2 (t2 INT64 NOT NULL,) PRIMARY KEY(t2)",
-  ]
-  deletion_protection = false
 }
