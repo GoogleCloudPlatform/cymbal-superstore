@@ -2,7 +2,7 @@
 <img src="assets/logo.png" width="400" style="padding: 30px;" alt="Cymbal Superstore" />
 </p>
 
-Cymbal Superstore is sample grocery store web application, built with React.js and Node.js. This sample was built to showcase [Duet AI in Google Cloud](https://cloud.google.com/duet-ai), including AI-assisted development, operations, and analytics. 
+Cymbal Superstore is sample grocery store web application, built with React.js and Node.js. This sample was built to showcase [Gemini AI Code Assist](https://cloud.google.com/gemini/docs/codeassist/overview), including AI-assisted development, operations, and analytics. 
 
 **[Check out the blog post to learn more.](https://cloud.google.com/blog/products/application-development/how-ai-driven-software-creation-tools-speed-up-your-development)**  
 
@@ -14,7 +14,7 @@ This is a prototype demo, with mocked components and data; it is not a productio
   - [Part 1 - Create a Cloud Workstations Cluster](#part-1---create-a-cloud-workstations-cluster)
   - [Part 2 - Use Terraform to deploy Cymbal Superstore](#part-2---use-terraform-to-deploy-cymbal-superstore)
   - [Part 3 - Configure Spanner](#part-3---configure-spanner)
-- [Try Duet AI](#try-duet-ai)
+- [Try Gemini Code Assist](#try-gemini-code-assist)
   - [Development](#development)
     - [Code Generation](#code-generation)
     - [Debugging](#debugging)
@@ -35,14 +35,14 @@ This is a prototype demo, with mocked components and data; it is not a productio
 To deploy this sample to a Google Cloud project, you will need: 
 - A Google Cloud project with billing enabled
 - Owner permissions in your project
-- Duet AI activated in your project. ([Learn more](https://cloud.google.com/earlyaccess/duet-ai))
+- Gemini Code Assist activated in your project. ([Learn more](https://cloud.google.com/products/gemini/code-assist))
 - Security Command Center (Premium) activated in your project.
 
 Then, follow these steps:
 
 ### Part 1 - Create a Cloud Workstations Cluster 
 
-To deploy Cymbal Superstore, and then interact with the codebase using Duet AI, we use [Cloud Workstations](https://cloud.google.com/workstations?hl=en), a Google Cloud-hosted developer machine.
+To deploy Cymbal Superstore, and then interact with the codebase using Gemini Code Assist, we use [Cloud Workstations](https://cloud.google.com/workstations), a Google Cloud-hosted developer machine.
 
 1. Open the Cloud Workstations Console in your project https://console.cloud.google.com/workstations/ 
 1. Enable the Workstations API.
@@ -52,7 +52,7 @@ To deploy Cymbal Superstore, and then interact with the codebase using Duet AI, 
 1. Start and Launch your Workstation from the console. 
 1. Inside your Workstation's editor, click **Cloud Code - Sign in.** Follow the steps to sign in to your GCP account.
 1. Click **Cloud Code - No Project**, then select your project.
-1. Reload the editor. You should see a Duet AI icon in the left sidebar, as well as a Duet AI indicator on the bottom-right of your editor. 
+1. Reload the editor. You should see a Gemini AI icon in the left sidebar, as well as a Gemini AI indicator on the bottom-right of your editor. 
 
 ### Part 2 - Use Terraform to deploy Cymbal Superstore 
 
@@ -145,14 +145,14 @@ terraform apply
 
 ![](assets/frontend-screenshot.png)
 
-15. Click on **New Arrivals.** You should see a mocked list of gray product rectangles. This is expected; the Duet AI demo steps cover the backend implementation of serving this list of new products. 
+15. Click on **New Arrivals.** You should see a mocked list of gray product rectangles. This is expected; the Gemini Code Assist demo steps cover the backend implementation of serving this list of new products. 
 
 ![](assets/new-arrivals-mock.png)
 
 
 ### Part 3 - Configure Spanner
 
-The Spanner component of this demo is mocked - there's no web service writing data to Spanner. Instead, we preload Spanner with mock transaction data so that when we use Duet AI in Spanner, we have some data to work with.
+The Spanner component of this demo is mocked - there's no web service writing data to Spanner. Instead, we preload Spanner with mock transaction data so that when we use Gemini in Spanner, we have some data to work with.
 
 1. In a terminal, open `scripts/spanner.sh`. 
 2. Replace `PROJECT_ID` with your project ID.
@@ -166,9 +166,9 @@ chmod +x ./spanner.sh
 
 When successful, you should see a series of `commitTimestamp` log messages indicating that the script is writing data to Spanner.
 
-## Try Duet AI
+## Try Gemini Code Assist
 
-To test out [Duet AI in Google Cloud](https://cloud.google.com/duet-ai) features using this sample, try these steps.
+To test out [Gemini Code Assist in Google Cloud](https://cloud.google.com/products/gemini/code-assist) features using this sample, try these steps.
 
 ### Development
 
@@ -182,7 +182,7 @@ Add this prompt as a code comment:
 // Get new products from Firestore (added < 7 days ago) and quantity > 0 (in stock)
 ```
 
-Observe Duet's code completion suggestions, and press `tab` to accept. Continue pressing `tab` to accept subsequent code completion suggestions.
+Observe Gemini's code completion suggestions, and press `tab` to accept. Continue pressing `tab` to accept subsequent code completion suggestions.
 
 ![](/assets/demo-code-completion.gif)
 
@@ -208,11 +208,11 @@ curl localhost:8000/newproducts
 
 You may see an error: `curl: (52) Empty reply from server` with a log message: `Cannot have inequality filters on multiple properties`. This error comes from the Firestore client library. 
 
-To debug, open the Duet AI Chat icon (chat bubble with a diamond symbol) on the left side of your Workstation editor. Paste in the log message and ask Duet to help you figure out how to fix. 
+To debug, open the Gemini AI Chat icon (chat bubble with a diamond symbol) on the left side of your Workstation editor. Paste in the log message and ask Gemini to help you figure out how to fix. 
 
 ![](/assets/demo-debug.gif)
 
-Duet's response says that Cloud Firestore does not support multiple inequality filters in the same query. To resolve, delete the line `.where("quantity", ">", 0)` so that we only have one filter in our query. 
+Gemini's response says that Cloud Firestore does not support multiple inequality filters in the same query. To resolve, delete the line `.where("quantity", ">", 0)` so that we only have one filter in our query. 
 
 Restart the server, and attempt to curl again. You should successfully get back a list of products.
 
@@ -225,7 +225,7 @@ To get the solution function for this step, see `scripts/solutioncode-bug-fixed.
 
 #### Testing 
 
-Open `backend/index.test.ts`. Use Duet AI chat to generate a test for the `newproducts()` function:
+Open `backend/index.test.ts`. Use Gemini AI chat to generate a test for the `newproducts()` function:
 
 ```
 Help me write an Express.js test using Jest, in typescript, for the GET /newproducts handler in index.ts. Should check if the response code is 200 and the list of new products is length 8.
@@ -237,7 +237,7 @@ Paste the `describe()..` test into index.test.ts.
 
 #### Deploy the new feature
 
-After using Duet AI to build the newproducts() backend feature into the Inventory API, you can deploy that code to Cloud Run simply by re-running `terraform apply`. This step will containerize your updated `backend/` code, push to Container Registry, and redeploy to Cloud Run. 
+After using Gemini Code Assist to build the newproducts() backend feature into the Inventory API, you can deploy that code to Cloud Run simply by re-running `terraform apply`. This step will containerize your updated `backend/` code, push to Container Registry, and redeploy to Cloud Run. 
 
 ```
 cd ~/cymbal-superstore/terraform
@@ -253,11 +253,11 @@ Now, if you hit your `frontend_ip` and click **New Products**, you should see a 
 
 #### Logging 
 
-Open the Google Cloud Console. Click the Duet AI icon on the top right. In the Chat window, ask where to find logs for the Inventory service: 
+Open the Google Cloud Console. Click the Gemini AI icon on the top right. In the Chat window, ask where to find logs for the Inventory service: 
 
 ![](/assets/demo-find-logs.gif)
 
-Then, inside Cloud Logging, click on any individual Log message, then click **Explain this log entry**. A Duet AI window should appear on the right, explaining the log message. 
+Then, inside Cloud Logging, click on any individual Log message, then click **Explain this log entry**. A Gemini AI window should appear on the right, explaining the log message. 
 
 ![](/assets/explain-log.png)
 
@@ -277,7 +277,7 @@ Note - Security Command Center works best if you wait 1-2 days after activation,
 
 Open BigQuery in the Cloud Console. On the left side, click the `cymbalsales` dataset, and below that, the `cymbalsalestable`. Open a new Query window.
 
-On the top right of the query window, you should see a Duet AI icon (blue magic wand). Click it to ensure that SQL Code Completion is selected:
+On the top right of the query window, you should see a Gemini AI icon (blue magic wand). Click it to ensure that SQL Code Completion is selected:
 
 <p align="left">
 <img src="assets/demo-select-bq-duet.png" width="400" style="padding: 30px;" alt="Cymbal Superstore" />
