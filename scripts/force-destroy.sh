@@ -4,7 +4,7 @@ gcloud config set project $PROJECT_ID
 
 # delete cloud storage bucket 
 export GCS_BUCKET="${PROJECT_ID}-cymbal-frontend"
-gsutil rm -r gs://${GCS_BUCKET}
+gcloud storage rm --recursive gs://${GCS_BUCKET}
 gcloud storage rm --recursive gs://${GCS_BUCKET}
 
 # delete bigquery dataset, "cymbal_sales"

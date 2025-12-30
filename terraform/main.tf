@@ -99,7 +99,7 @@ resource "null_resource" "npm_build_frontend" {
 }
 resource "null_resource" "cloud_storage_upload_frontend" {
   provisioner "local-exec" {
-    command = "gsutil -m cp -r ../frontend/build/* gs://${local.frontend_bucket_name}"
+    command = "gcloud storage cp --recursive ../frontend/build/* gs://${local.frontend_bucket_name}"
   }
   depends_on = [
     null_resource.npm_build_frontend,
